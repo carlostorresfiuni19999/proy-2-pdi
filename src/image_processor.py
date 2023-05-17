@@ -13,6 +13,11 @@ class ImageProcessor(object):
     image = cv2.imread(image_url, 0)
     self.original_image = image
 
+  def threshold(image, thresh = 0.5):
+    image[image >= thresh] = 255
+    image[image < thresh] = 0
+    return image
+
   def get_original_image(self):
     """
       Retornamos la imagen original
@@ -23,6 +28,11 @@ class ImageProcessor(object):
     """
       Retornamos la imagen binarizada
     """
+
+    #Guardamos la copia de la imagen original
+    img_copy = np.copy(self.get_original_image)
+    binarized_img = self.threshold(img_copy)
+    self.get_binarized_image = binarized_img
     return self.binarized_image
 
   @staticmethod
