@@ -13,10 +13,9 @@ class ImageProcessor(object):
     image = cv2.imread(image_url, 0)
     self.original_image = image
 
-  def threshold(image, thresh = 0.5):
-    image[image >= thresh] = 255
-    image[image < thresh] = 0
-    return image
+  def threshold(image):
+    _ , result = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    return result
 
   def get_original_image(self):
     """
