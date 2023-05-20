@@ -39,7 +39,10 @@ class ImageProcessor(object):
     """
       Calculamos el Error Cuadratico Medio de Acuerdo entre dos matrices.
     """
-    mse = 0
+    
+    diff = original_image - stimated_image
+    
+    mse = np.mean(diff**2)
     return mse
 
   @staticmethod
@@ -47,7 +50,9 @@ class ImageProcessor(object):
     """
       Calculamos el Proporción Máxima de Señal a Ruido dado un mse
     """
-    psnr = 0
+    
+    mse = ImageProcessor.calc_mse(original_image, stimated_image)
+    psnr = sqrt(mse)
     return psnr
 
   @staticmethod
@@ -55,5 +60,5 @@ class ImageProcessor(object):
     """
       Calculamos el Error absoluto medio de Acuerdo entre dos matrices.
     """
-    mae = 0
+    mae = np.mean(np.abs(original_image - stimated_image))
     return mae

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 from image_processor import ImageProcessor
+import matplotlib
+matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
 import cv2
 import numpy as np 
@@ -32,9 +34,9 @@ def show_errors(image_processor, k_threshold):
   """
   t_range = np.arange(1., 10., 2)
   plt.title("Medicion de ejemplo".format(k_threshold))
-  plt.subplot(2, 2, 1), plt.plot(t_range, t_range, '^-k', t_range, t_range ** 2, '-or'), plt.title('Prueba 1')
-  plt.subplot(2, 2, 2), plt.plot(t_range, t_range ** 2, '-or'), plt.title('Prueba 2')
-  plt.subplot(2, 2, 3), plt.plot(t_range, t_range ** 2.2, '--sb'), plt.title('Prueba 3')
+  plt.subplot(2, 2, 1), plt.plot(t_range, t_range, '^-k', t_range, t_range ** 2, '-or'), plt.title('MSE')
+  plt.subplot(2, 2, 2), plt.plot(t_range, t_range ** 2, '-or'), plt.title('PSNR')
+  plt.subplot(2, 2, 3), plt.plot(t_range, t_range ** 2.2, '--sb'), plt.title('MAE')
 
   plt.show()
 
