@@ -17,9 +17,14 @@ import os
 def show_images(image_processor, k_threshold, median_window_size):
   original_image = image_processor.get_original_image()
   binarized_image = image_processor.get_binarized_image()
+  normal_thresh = image_processor.threshold(original_image)
+  thresh_0_6 = image_processor.threshold(original_image, 0.6)
 
-  plt.subplot(2, 2, 1), plt.imshow(original_image, cmap='gray', vmin=0, vmax=255), plt.title('Imagen Original')
-  plt.subplot(2, 2, 2), plt.imshow(binarized_image, cmap='gray', vmin=0, vmax=255), plt.title('Imagen Binarizada')
+  plt.subplot(2, 2, 1), plt.imshow(original_image, cmap='gray', vmin=0, vmax=255), plt.title('Original')
+  plt.subplot(2, 2, 2), plt.imshow(binarized_image, cmap='gray', vmin=0, vmax=255), plt.title('Otzu Threshold')
+  plt.subplot(2, 2, 3), plt.imshow(normal_thresh, cmap='gray', vmin=0, vmax=255), plt.title('Thresh 0.5')
+  plt.subplot(2, 2, 4), plt.imshow(thresh_0_6, cmap='gray', vmin=0, vmax=255), plt.title('Thresh 0.3')
+  
   plt.show(block=True)
   
 def errors(image_processor):
@@ -50,7 +55,7 @@ def show_errors(image_processor, k_threshold):
   results_mse = {}
   results_psnr = {}
   results_mae = {}
-  img_original = image_processor.get_gray_image()
+  img_original = image_processor.get_original_image()
   img_binarized = image_processor.get_binarized_image()
   
   for v in values:

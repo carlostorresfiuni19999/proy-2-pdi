@@ -10,8 +10,8 @@ class ImageProcessor(object):
     self.init(image_url)
 
   def init(self, image_url):
-    self.original_image = cv2.imread(image_url, 0)
-    self.image_gray = cv2.cvtColor(self.original_image, cv2.IMREAD_GRAYSCALE)
+    self.original_image = cv2.imread(image_url)
+
   
 
   def otzu_threshold(self, image):
@@ -20,6 +20,7 @@ class ImageProcessor(object):
   
   def threshold(self, img, thresh = 0.5):
     image = np.copy(img)
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     image[image >= (thresh*255)] = 255
     image[image < (thresh*255)] = 0
     return image
@@ -27,8 +28,7 @@ class ImageProcessor(object):
   def get_otzu_thresh(self):
     return self.otzu_thresh
   
-  def get_gray_image(self):
-    return self.image_gray
+ 
     
   def get_original_image(self):
     """
@@ -40,7 +40,9 @@ class ImageProcessor(object):
     """
       Retornamos la imagen binarizada
     """
-    _, binarized_img = self.otzu_threshold(self.image_gray)
+    
+    gray = cv2.cvtColor(self.original_image, cv2.COLOR_BGR2GRAY)
+    _, binarized_img = self.otzu_threshold(gray)
     self.binarized_image = binarized_img
     self.otzu_thresh = _/255
     return self.binarized_image
@@ -50,8 +52,8 @@ class ImageProcessor(object):
     """
       Calculamos el Error Cuadratico Medio de Acuerdo entre dos matrices.
     """
-    
-    diff = original_image - stimated_image
+    gray = cv2.cvtColor(original_image, cv2.COLOR_BGR2GRAY)
+    diff = gray - stimated_image
     
     mse = np.mean(diff**2)
     return mse
@@ -71,5 +73,7 @@ class ImageProcessor(object):
     """
       Calculamos el Error absoluto medio de Acuerdo entre dos matrices.
     """
-    mae = np.mean(np.abs(original_image - stimated_image))
+    gray = cv2.cvtColor(original_image, cv2.COLOR_BGR2GRAY)
+    diff = gray - stimated_image
+    mae = np.mean(np.abs(diff))
     return mae
