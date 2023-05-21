@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 from image_processor import ImageProcessor
-import matplotlib
-matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
 import cv2
 import numpy as np 
