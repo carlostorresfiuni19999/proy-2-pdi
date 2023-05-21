@@ -11,6 +11,7 @@ class ImageProcessor(object):
 
   def init(self, image_url):
     self.original_image = cv2.imread(image_url, 0)
+    self.image_gray = cv2.cvtColor(self.original_image, cv2.IMREAD_GRAYSCALE)
   
 
   def otzu_threshold(self, image):
@@ -26,7 +27,8 @@ class ImageProcessor(object):
   def get_otzu_thresh(self):
     return self.otzu_thresh
   
- 
+  def get_gray_image(self):
+    return self.image_gray
     
   def get_original_image(self):
     """
@@ -38,7 +40,7 @@ class ImageProcessor(object):
     """
       Retornamos la imagen binarizada
     """
-    _, binarized_img = self.otzu_threshold(self.original_image)
+    _, binarized_img = self.otzu_threshold(self.image_gray)
     self.binarized_image = binarized_img
     self.otzu_thresh = _/255
     return self.binarized_image

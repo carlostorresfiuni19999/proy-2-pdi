@@ -50,7 +50,7 @@ def show_errors(image_processor, k_threshold):
   results_mse = {}
   results_psnr = {}
   results_mae = {}
-  img_original = image_processor.get_original_image()
+  img_original = image_processor.get_gray_image()
   img_binarized = image_processor.get_binarized_image()
   
   for v in values:
