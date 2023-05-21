@@ -10,13 +10,24 @@ class ImageProcessor(object):
     self.init(image_url)
 
   def init(self, image_url):
-    image = cv2.imread(image_url, 0)
-    self.original_image = image
+    self.original_image = cv2.imread(image_url, 0)
+  
 
-  def threshold(image):
-    _ , result = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+  def otzu_threshold(self, image):
+    result = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
     return result
-
+  
+  def threshold(self, img, thresh = 0.5):
+    image = np.copy(img)
+    image[image >= (thresh*255)] = 255
+    image[image < (thresh*255)] = 0
+    return image
+  
+  def get_otzu_thresh(self):
+    return self.otzu_thresh
+  
+ 
+    
   def get_original_image(self):
     """
       Retornamos la imagen original
@@ -27,11 +38,9 @@ class ImageProcessor(object):
     """
       Retornamos la imagen binarizada
     """
-
-    #Guardamos la copia de la imagen original
-    img_copy = np.copy(self.get_original_image)
-    binarized_img = self.threshold(img_copy)
-    self.get_binarized_image = binarized_img
+    _, binarized_img = self.otzu_threshold(self.original_image)
+    self.binarized_image = binarized_img
+    self.otzu_thresh = _/255
     return self.binarized_image
 
   @staticmethod
