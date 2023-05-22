@@ -28,6 +28,12 @@ class ImageProcessor(object):
   def get_otzu_thresh(self):
     return self.otzu_thresh
   
+  def otzu_and_median_blur(self):
+    img_copy = np.copy(self.original_image)
+    img_copy = cv2.cvtColor(img_copy, cv2.COLOR_BGR2GRAY)
+    img_copy = cv2.medianBlur(img_copy, 7)
+    return self.otzu_threshold(img_copy)
+    
  
     
   def get_original_image(self):
